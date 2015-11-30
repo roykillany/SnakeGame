@@ -19,5 +19,5 @@ Be careful: If your snake runs into itself, the game will be over. Plus if you l
 
 
 ## Comments
-* Need to add apples
-* Have snake grow with eating apples
+* Add a score
+* Add retro styling

@@ -52,7 +52,7 @@ Apple.prototype.replace = function () {
   };
 
   Snake.SYMBOL = "S";
-  Snake.GROW_TURNS = 3;
+  Snake.GROW_TURNS = 1;
   Apple.SYMBOL = "A";
 
   Snake.prototype.move = function () {
@@ -119,7 +119,7 @@ Snake.prototype.isValid = function () {
 
 Snake.prototype.eatApple = function () {
   if (this.head().equals(this.board.apple.position)) {
-    this.growTurns += 3;
+    this.growTurns += 1;
     return true;
   } else {
     return false;
