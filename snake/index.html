@@ -2,14 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>SNAKE!</title>
+    <title>Snake</title>
+    <link rel="stylesheet" type="text/css" href="./css/snake.css">
   </head>
   <body>
-    <script src="./js/snake.js"></script>
+
+    <figure class="snake-game"></figure>
+
+    <script src="./js/jquery-1.9.1.js"></script>
+    <script src="./js/bundle.js"></script>
 
     <script>
-    var s = new SnakeGame.Snake();
-    debugger
+    $(function () {
+      new SnakeGame.View($(".snake-game"));
+    });
     </script>
 
   </body>

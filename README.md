@@ -1,9 +1,23 @@
-# w5d5/w6d3: ttt.js
+# Snake Browser Game
 
-* **[w5d5 description][w5d5-description]**
-* **[w6d3 description][w6d3-description]**
-* **[Live Demo][live-demo]**
+This game is an implementation of the classic game Snake in JavaScript.
 
-[w5d5-description]: https://github.com/appacademy/js-curriculum/blob/master/w5d5/hanoi-ttt.md
-[w6d3-description]: https://github.com/appacademy/js-curriculum/blob/master/projects/w6d3-ttt-ui.md
-[live-demo]: http://appacademy.github.io/ttt.js/solution/html/index.html
+## Getting Started
+
+To run this game open 'index.html' in your favorite web browser. (link coming soon)
+
+## How yo Play
+
+Move up, left, down and right to collect the snake "food" aka apples and grow your snake.
+Be careful: If your snake runs into itself, the game will be over. Plus if you leave the board, it comes out on the opposite side!
+
+## Controls
+* Arrow Up / Move snake up
+* Arrow Left / Move snake left
+* Arrow Down / Move snake down
+* Arrow Right / Move snake right
+
+
+## Comments
+* Need to add apples
+* Have snake grow with eating apples
