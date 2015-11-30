@@ -87,11 +87,14 @@
 	View.prototype.handleKeyEvent = function (event) {
 	  if (View.KEYS[event.keyCode]) {
 	    this.board.snake.turn(View.KEYS[event.keyCode]);
+	  } else {
+
 	  }
 	};
 
 	View.prototype.render = function () {
 	  this.updateClasses(this.board.snake.segments, "snake");
+	  this.updateClasses([this.board.apple.position], "apple");
 	};
 
 	View.prototype.updateClasses = function(coords, className) {
@@ -153,6 +156,23 @@
 	  return new Coord(this.row + coord.row, this.col + coord.col);
 	};
 
+	var Apple = function (board) {
+	  this.board = board;
+	  this.replace();
+	};
+
+	Apple.prototype.replace = function () {
+	  var x = Math.floor(Math.random() * this.board.dim);
+	  var y = Math.floor(Math.random() * this.board.dim);
+
+	  while (this.board.snake.isOccupying([x, y])) {
+	    x = Math.floor(Math.random() * this.board.dim);
+	    y = Math.floor(Math.random() * this.board.dim);
+	  }
+
+	  this.position = new Coord(x, y);
+	};
+
 	  var Snake = function (board) {
 	    this.dir = "S"; // , "E", "S", "W"]
 	    this.turning = false;
@@ -170,12 +190,28 @@
 	    "S": new Coord( 1, 0),
 	    "W": new Coord( 0, -1)
 	  };
-	  Snake.COORD_DIRS = [[-1,0],[0,1], [1,0],[0 -1]];
+
+	  Snake.SYMBOL = "S";
+	  Snake.GROW_TURNS = 3;
+	  Apple.SYMBOL = "A";
 
 	  Snake.prototype.move = function () {
 	    this.segments.push(this.head().plus(Snake.DIRECTIONS[this.dir]));
 	    this.turning = false;
-	    this.segments.shift();
+
+	    if (this.eatApple()) {
+	      this.board.apple.replace();
+	    }
+
+	    if (this.growTurns > 0) {
+	      this.growTurns -= 1;
+	    } else {
+	      this.segments.shift();
+	    }
+
+	    if (!this.isValid()) {
+	      this.segments = [];
+	    }
 	  };
 
 
@@ -221,10 +257,20 @@
 	  return true;
 	};
 
+	Snake.prototype.eatApple = function () {
+	  if (this.head().equals(this.board.apple.position)) {
+	    this.growTurns += 3;
+	    return true;
+	  } else {
+	    return false;
+	  }
+	};
+
 	  var Board = function (dimension) {
 	    this.dim = dimension;
 
 	    this.snake = new Snake(this);
+	    this.apple = new Apple(this);
 	  };
 
 	  Board.BLANK = ".";
@@ -249,6 +295,8 @@
 	    this.snake.segments.forEach(function (segment) {
 	      grid[segment.row][segment.col] = Snake.SYMBOL;
 	    });
+
+	    grid[this.apple.position.row][this.apple.position.col] = Apple.SYMBOL;
 
 	    var rowStrs = [];
 	    grid.map(function (row) {

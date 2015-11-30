@@ -40,3 +40,8 @@ li {
 .snake {
   background: green;
 }
+
+.apple {
+  background: red;
+  border-radius: 50%;
+}

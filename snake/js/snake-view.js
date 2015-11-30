@@ -24,11 +24,14 @@ View.KEYS = {
 View.prototype.handleKeyEvent = function (event) {
   if (View.KEYS[event.keyCode]) {
     this.board.snake.turn(View.KEYS[event.keyCode]);
+  } else {
+
   }
 };
 
 View.prototype.render = function () {
   this.updateClasses(this.board.snake.segments, "snake");
+  this.updateClasses([this.board.apple.position], "apple");
 };
 
 View.prototype.updateClasses = function(coords, className) {
