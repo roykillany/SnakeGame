@@ -104,8 +104,10 @@ Snake.prototype.head = function () {
 Snake.prototype.isValid = function () {
   var head = this.head();
 
-  if (!this.board.validPosition(this.head())) {
-    return false;
+  if (!this.board.offBoard(this.head())) {
+    newCoord = this.board.getNewCoord(this.head());
+    this.segments.pop();
+    this.segments.push(new Coord(newCoord[0], newCoord[1]));
   }
 
   for (var i = 0; i < this.segments.length - 1; i++) {
@@ -164,9 +166,30 @@ Snake.prototype.eatApple = function () {
     }).join("\n");
   };
 
-  Board.prototype.validPosition = function (coord) {
+  Board.prototype.offBoard = function (coord) {
   return (coord.row >= 0) && (coord.row < this.dim) &&
     (coord.col >= 0) && (coord.col < this.dim);
+  };
+
+  Board.prototype.getNewCoord = function (coord) {
+
+    newCoord = [];
+    if (coord.row <= 0) {
+      newCoord.push(this.dim);
+    } else if (coord.row >= this.dim) {
+      newCoord.push(0);
+    } else {
+      newCoord.push(coord.row);
+    }
+
+    if (coord.col <= 0) {
+      newCoord.push(this.dim);
+    }	else if (coord.col >= this.dim) {
+      newCoord.push(0);
+    } else {
+      newCoord.push(coord.col);
+    }
+    return newCoord;
   };
 
   module.exports = Board;

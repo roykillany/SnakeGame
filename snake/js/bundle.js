@@ -126,9 +126,21 @@
 	    this.board.snake.move();
 	    this.render();
 	  } else {
-	    alert("You lose!");
-	    window.clearInterval(this.intervalId);
+	    this.gameOver();
 	  }
+	};
+
+	View.prototype.gameOver = function () {
+		window.clearInterval(this.intervalId);
+		this.board.snake.score = 0;
+		$(document).off('keydown');
+		this.$el.append("<strong>Game Over</strong><strong><br><br><br>Click to Play Again</strong>");
+		this.$el.one('click', function () {
+			this.$el.empty();
+			this.board = new Board(20);
+			this.setupGrid();
+			new SnakeGame.View($(".snake-game"));
+		}.bind(this));
 	};
 
 	module.exports = View;
@@ -244,8 +256,10 @@
 	Snake.prototype.isValid = function () {
 	  var head = this.head();
 
-	  if (!this.board.validPosition(this.head())) {
-	    return false;
+	  if (!this.board.offBoard(this.head())) {
+	    newCoord = this.board.getNewCoord(this.head());
+	    this.segments.pop();
+	    this.segments.push(new Coord(newCoord[0], newCoord[1]));
 	  }
 
 	  for (var i = 0; i < this.segments.length - 1; i++) {
@@ -268,7 +282,6 @@
 
 	  var Board = function (dimension) {
 	    this.dim = dimension;
-
 	    this.snake = new Snake(this);
 	    this.apple = new Apple(this);
 	  };
@@ -304,9 +317,30 @@
 	    }).join("\n");
 	  };
 
-	  Board.prototype.validPosition = function (coord) {
+	  Board.prototype.offBoard = function (coord) {
 	  return (coord.row >= 0) && (coord.row < this.dim) &&
 	    (coord.col >= 0) && (coord.col < this.dim);
+	  };
+
+	  Board.prototype.getNewCoord = function (coord) {
+
+	    newCoord = [];
+	    if (coord.row <= 0) {
+	      newCoord.push(this.dim);
+	    } else if (coord.row >= this.dim) {
+	      newCoord.push(0);
+	    } else {
+	      newCoord.push(coord.row);
+	    }
+
+	    if (coord.col <= 0) {
+	      newCoord.push(this.dim);
+	    }	else if (coord.col >= this.dim) {
+	      newCoord.push(0);
+	    } else {
+	      newCoord.push(coord.col);
+	    }
+	    return newCoord;
 	  };
 
 	  module.exports = Board;
@@ -316,7 +350,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	
+
 
 /***/ }
 /******/ ]);
