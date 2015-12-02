@@ -42,6 +42,8 @@ Apple.prototype.replace = function () {
     this.segments = [topCenter];
 
     this.growTurns = 0;
+
+    this.score = 0;
   };
 
   Snake.DIRECTIONS = {
@@ -122,6 +124,7 @@ Snake.prototype.isValid = function () {
 Snake.prototype.eatApple = function () {
   if (this.head().equals(this.board.apple.position)) {
     this.growTurns += 1;
+    this.score += 5;
     return true;
   } else {
     return false;

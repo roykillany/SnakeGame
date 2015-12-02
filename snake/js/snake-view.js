@@ -32,6 +32,8 @@ View.prototype.handleKeyEvent = function (event) {
 View.prototype.render = function () {
   this.updateClasses(this.board.snake.segments, "snake");
   this.updateClasses([this.board.apple.position], "apple");
+
+  $('.score').text("Score: " + this.board.snake.score);
 };
 
 View.prototype.updateClasses = function(coords, className) {
@@ -63,9 +65,21 @@ View.prototype.step = function () {
     this.board.snake.move();
     this.render();
   } else {
-    alert("You lose!");
-    window.clearInterval(this.intervalId);
+    this.gameOver();
   }
+};
+
+View.prototype.gameOver = function () {
+  window.clearInterval(this.intervalId);
+  this.board.snake.score = 0;
+  $(document).off('keydown');
+  this.$el.append("<strong>Game Over</strong><strong><p>Click to Play Again</p></strong>");
+  this.$el.one('click', function () {
+    this.$el.empty();
+    this.board = new Board(20);
+    this.setupGrid();
+    new SnakeGame.View($(".snake-game"));
+  }.bind(this));
 };
 
 module.exports = View;

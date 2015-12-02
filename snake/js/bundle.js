@@ -95,6 +95,8 @@
 	View.prototype.render = function () {
 	  this.updateClasses(this.board.snake.segments, "snake");
 	  this.updateClasses([this.board.apple.position], "apple");
+
+	  $('.score').text("Score: " + this.board.snake.score);
 	};
 
 	View.prototype.updateClasses = function(coords, className) {
@@ -131,16 +133,16 @@
 	};
 
 	View.prototype.gameOver = function () {
-		window.clearInterval(this.intervalId);
-		this.board.snake.score = 0;
-		$(document).off('keydown');
-		this.$el.append("<strong>Game Over</strong><strong><br><br><br>Click to Play Again</strong>");
-		this.$el.one('click', function () {
-			this.$el.empty();
-			this.board = new Board(20);
-			this.setupGrid();
-			new SnakeGame.View($(".snake-game"));
-		}.bind(this));
+	  window.clearInterval(this.intervalId);
+	  this.board.snake.score = 0;
+	  $(document).off('keydown');
+	  this.$el.append("Game Over<p>Click to Play Again</p>");
+	  this.$el.one('click', function () {
+	    this.$el.empty();
+	    this.board = new Board(20);
+	    this.setupGrid();
+	    new SnakeGame.View($(".snake-game"));
+	  }.bind(this));
 	};
 
 	module.exports = View;
@@ -194,6 +196,8 @@
 	    this.segments = [topCenter];
 
 	    this.growTurns = 0;
+
+	    this.score = 0;
 	  };
 
 	  Snake.DIRECTIONS = {
@@ -274,6 +278,7 @@
 	Snake.prototype.eatApple = function () {
 	  if (this.head().equals(this.board.apple.position)) {
 	    this.growTurns += 1;
+	    this.score += 5;
 	    return true;
 	  } else {
 	    return false;
@@ -282,6 +287,7 @@
 
 	  var Board = function (dimension) {
 	    this.dim = dimension;
+
 	    this.snake = new Snake(this);
 	    this.apple = new Apple(this);
 	  };
@@ -302,20 +308,7 @@
 	    return grid;
 	  };
 
-	  Board.prototype.render = function () {
-	    var grid = Board.blankGrid(this.dim);
 
-	    this.snake.segments.forEach(function (segment) {
-	      grid[segment.row][segment.col] = Snake.SYMBOL;
-	    });
-
-	    grid[this.apple.position.row][this.apple.position.col] = Apple.SYMBOL;
-
-	    var rowStrs = [];
-	    grid.map(function (row) {
-	      return row.join("");
-	    }).join("\n");
-	  };
 
 	  Board.prototype.offBoard = function (coord) {
 	  return (coord.row >= 0) && (coord.row < this.dim) &&
