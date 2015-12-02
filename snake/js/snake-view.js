@@ -22,6 +22,7 @@ View.KEYS = {
 };
 
 View.prototype.handleKeyEvent = function (event) {
+  event.preventDefault();
   if (View.KEYS[event.keyCode]) {
     this.board.snake.turn(View.KEYS[event.keyCode]);
   } else {

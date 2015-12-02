@@ -53,10 +53,6 @@ Apple.prototype.replace = function () {
     "W": new Coord( 0, -1)
   };
 
-  Snake.SYMBOL = "S";
-  Snake.GROW_TURNS = 1;
-  Apple.SYMBOL = "A";
-
   Snake.prototype.move = function () {
     this.segments.push(this.head().plus(Snake.DIRECTIONS[this.dir]));
     this.turning = false;
@@ -154,20 +150,6 @@ Snake.prototype.eatApple = function () {
     return grid;
   };
 
-  Board.prototype.render = function () {
-    var grid = Board.blankGrid(this.dim);
-
-    this.snake.segments.forEach(function (segment) {
-      grid[segment.row][segment.col] = Snake.SYMBOL;
-    });
-
-    grid[this.apple.position.row][this.apple.position.col] = Apple.SYMBOL;
-
-    var rowStrs = [];
-    grid.map(function (row) {
-      return row.join("");
-    }).join("\n");
-  };
 
   Board.prototype.offBoard = function (coord) {
   return (coord.row >= 0) && (coord.row < this.dim) &&

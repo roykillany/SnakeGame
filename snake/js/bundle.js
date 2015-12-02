@@ -85,6 +85,7 @@
 	};
 
 	View.prototype.handleKeyEvent = function (event) {
+	  event.preventDefault();
 	  if (View.KEYS[event.keyCode]) {
 	    this.board.snake.turn(View.KEYS[event.keyCode]);
 	  } else {
@@ -136,7 +137,7 @@
 	  window.clearInterval(this.intervalId);
 	  this.board.snake.score = 0;
 	  $(document).off('keydown');
-	  this.$el.append("Game Over<p>Click to Play Again</p>");
+	  this.$el.append("<strong>Game Over</strong><strong><p>Click to Play Again</p></strong>");
 	  this.$el.one('click', function () {
 	    this.$el.empty();
 	    this.board = new Board(20);
@@ -206,10 +207,6 @@
 	    "S": new Coord( 1, 0),
 	    "W": new Coord( 0, -1)
 	  };
-
-	  Snake.SYMBOL = "S";
-	  Snake.GROW_TURNS = 1;
-	  Apple.SYMBOL = "A";
 
 	  Snake.prototype.move = function () {
 	    this.segments.push(this.head().plus(Snake.DIRECTIONS[this.dir]));
@@ -309,7 +306,6 @@
 	  };
 
 
-
 	  Board.prototype.offBoard = function (coord) {
 	  return (coord.row >= 0) && (coord.row < this.dim) &&
 	    (coord.col >= 0) && (coord.col < this.dim);
@@ -343,7 +339,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-
+	
 
 /***/ }
 /******/ ]);
