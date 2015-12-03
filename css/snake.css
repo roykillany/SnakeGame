@@ -11,8 +11,9 @@ ul {
 }
 
 body {
-  font-family: sans-serif;
+  font-family: 'VT323';
   text-align: center;
+  background: #c0c1c3;
 }
 
 h1 {
@@ -20,10 +21,18 @@ h1 {
   margin: 30px;
 }
 
+.score {
+  text-align: left;
+  font-size: 33px;
+  width: 400px;
+  margin: 0 auto;
+}
+
 figure {
   display: inline-block;
   border: 2px solid black;
   overflow: hidden;
+  box-shadow: inset 4px 2px 2px #8b8989;
 }
 
 ul:after {
@@ -45,7 +54,19 @@ li {
 }
 
 .apple {
-  background: black;
-  border-radius: 50%;
-  box-shadow: 5px 3px 3px #8b8989;
+  background-image: url("https://s3.amazonaws.com/okcookiedev/static_images/apple.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 21px 21px;
+}
+
+.game-frame {
+    background-color: #a9cd97;
+    width: 500px;
+    padding-bottom: 50px;
+    padding-top: 20px;
+    margin: 0 auto;
+    border: 20px solid black;
+    border-radius: 9px;
+    box-shadow: inset 6px 3px 3px #8b8989;
 }

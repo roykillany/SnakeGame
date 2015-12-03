@@ -34,7 +34,7 @@ View.prototype.render = function () {
   this.updateClasses(this.board.snake.segments, "snake");
   this.updateClasses([this.board.apple.position], "apple");
 
-  $('.score').text("Score: " + this.board.snake.score);
+  $('.score').text("SCORE: " + this.board.snake.score);
 };
 
 View.prototype.updateClasses = function(coords, className) {
