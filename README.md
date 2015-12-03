@@ -19,5 +19,6 @@ Be careful: If your snake runs into itself, the game will be over. Plus if you l
 
 
 ## Comments
-* Add a score
-* Add retro styling
+* Add W/S/A/D controls
+* Add 3 hearts
+* Add mines (if mines are eaten lose a heart, all hearts gone => game is lost)
