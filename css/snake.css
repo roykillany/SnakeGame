@@ -35,6 +35,10 @@ figure {
   box-shadow: inset 4px 2px 2px #8b8989;
 }
 
+.snake-game {
+  position: relative;
+}
+
 ul:after {
   content: "";
   clear: both;
@@ -80,7 +84,7 @@ li {
   width: 100%;
   font-size: 64px;
   margin: auto;
-  height: 40px;
+  height: 115px;
   font-weight: 700;
 }
 
