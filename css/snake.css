@@ -10,6 +10,12 @@ ul {
   list-style: none;
 }
 
+.group {
+  content: "";
+  clear: both;
+  display: block;
+}
+
 body {
   font-family: 'VT323';
   text-align: center;
@@ -18,7 +24,8 @@ body {
 
 h1 {
   font-size: 60px;
-  margin: 30px;
+  margin: 20px auto;
+  width: 1050px;
 }
 
 .score {
@@ -73,6 +80,7 @@ li {
     border: 20px solid black;
     border-radius: 9px;
     box-shadow: inset 6px 3px 3px #8b8989;
+    float: left;
 }
 
 .game-over {
@@ -90,4 +98,110 @@ li {
 
 .play-again {
   font-size: 22px;
+}
+
+.bottons {
+  height: 120px;
+  width: 160px;
+  float: left;
+  margin-top: 220px;
+  padding-left: 100px;
+}
+
+.bottons > li:last-child {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background: #ab1991;
+  border: 1px solid black;
+  box-shadow: 2px 1px 1px black;
+}
+
+.bottons > li:first-child {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  background: #ab1991;
+  margin-left: 80px;
+  border: 1px solid black;
+  box-shadow: 2px 1px 1px black;
+}
+
+.cross {
+  float: left;
+  width: 150px;
+  height: 150px;
+  margin-top: 200px;
+  padding-right: 100px;
+}
+
+.cross > ul > li {
+  float: left;
+  width: 50px;
+  height: 50px;
+}
+
+.top {
+  background-color: #171717;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 2px 1px 1px black;
+}
+
+.left {
+  background-color: #171717;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 2px 1px 1px black;
+}
+
+.right {
+  background-color: #171717;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 2px 1px 1px black;
+}
+
+.bottom {
+  background-color: #171717;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 2px 1px 1px black;
+}
+
+.middle {
+  background-color: #171717;
+}
+
+.gameboy {
+  margin: 0 auto;
+  width: 1050px;
+}
+
+.pressed-top {
+  background: -webkit-linear-gradient(#353434, #171717); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#353434, #171717); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#353434, #171717); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#353434, #171717); /* Standard syntax */
+}
+
+.pressed-bottom {
+  background: -webkit-linear-gradient(#171717, #353434); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(#171717, #353434); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(#171717, #353434); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(#171717, #353434); /* Standard syntax */
+}
+
+.pressed-right {
+  background: -webkit-linear-gradient(left, #171717, #353434); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #171717, #353434); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #171717, #353434); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(right, #171717, #353434); /* Standard syntax */
+}
+
+.pressed-left {
+  background: -webkit-linear-gradient(left, #353434, #171717); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #353434, #171717); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #353434, #171717); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(right, #353434, #171717); /* Standard syntax */
 }

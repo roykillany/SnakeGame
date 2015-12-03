@@ -24,6 +24,29 @@ View.KEYS = {
 View.prototype.handleKeyEvent = function (event) {
   event.preventDefault();
   if (View.KEYS[event.keyCode]) {
+
+    if (event.keyCode == 38) {
+      $(".top").addClass("pressed-top");
+      window.setTimeout(function () {
+        $(".top").removeClass("pressed-top");
+      }, 400);
+    } else if (event.keyCode == 39) {
+      $(".right").addClass("pressed-right");
+      window.setTimeout(function () {
+        $(".right").removeClass("pressed-right");
+      }, 400);
+    } else if (event.keyCode == 40) {
+      $(".bottom").addClass("pressed-bottom");
+      window.setTimeout(function () {
+        $(".bottom").removeClass("pressed-bottom");
+      }, 400);
+    } else if (event.keyCode == 37) {
+      $(".left").addClass("pressed-left");
+      window.setTimeout(function () {
+        $(".left").removeClass("pressed-left");
+      }, 400);
+    }
+
     this.board.snake.turn(View.KEYS[event.keyCode]);
   } else {
 
