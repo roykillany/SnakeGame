@@ -74,7 +74,7 @@ View.prototype.gameOver = function () {
   window.clearInterval(this.intervalId);
   this.board.snake.score = 0;
   $(document).off('keydown');
-  this.$el.append("<strong>Game Over</strong><strong><p>Click to Play Again</p></strong>");
+  this.$el.append("<div class='game-over'><strong>Game Over</strong><strong class='play-again'><p>Click to Play Again</p></strong><div>");
   this.$el.one('click', function () {
     this.$el.empty();
     this.board = new Board(20);

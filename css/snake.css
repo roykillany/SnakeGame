@@ -70,3 +70,20 @@ li {
     border-radius: 9px;
     box-shadow: inset 6px 3px 3px #8b8989;
 }
+
+.game-over {
+  position: absolute;
+  text-align: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  font-size: 64px;
+  margin: auto;
+  height: 40px;
+  font-weight: 700;
+}
+
+.play-again {
+  font-size: 22px;
+}
