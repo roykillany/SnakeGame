@@ -21,4 +21,4 @@ EXTRA: Watch out there are bombs. Don't eat them! If you do you will lose a hear
 
 ## Comments
 * Fix leaving left screen bug
-* Check for bomb and extraBombs position when apple placed
+* Check for extraBombs position when apple placed

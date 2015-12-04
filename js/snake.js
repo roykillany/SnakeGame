@@ -25,7 +25,7 @@ Apple.prototype.replace = function () {
   var x = Math.floor(Math.random() * this.board.dim);
   var y = Math.floor(Math.random() * this.board.dim);
 
-  while (this.board.snake.isOccupying([x, y])) {
+  while (this.board.snake.isOccupying([x, y]) && this.board.bomb.isOccupying([x, y])) {
     x = Math.floor(Math.random() * this.board.dim);
     y = Math.floor(Math.random() * this.board.dim);
   }
@@ -57,6 +57,15 @@ Bomb.prototype.replace = function () {
   }
 
   this.position = new Coord(x, y);
+};
+
+Bomb.prototype.isOccupying = function (array) {
+  var result = false;
+    if (this.position.row === array[0] && this.position.col === array[1]) {
+      result = true;
+      return result;
+    }
+  return result;
 };
 
   var Snake = function (board) {
