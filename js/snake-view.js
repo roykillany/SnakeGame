@@ -56,7 +56,7 @@ View.prototype.handleKeyEvent = function (event) {
 View.prototype.render = function () {
   this.updateClasses(this.board.snake.segments, "snake");
   this.updateClasses([this.board.apple.position], "apple");
-  this.updateBombs([this.board.bomb.position], "bomb");
+  this.updateClasses([this.board.bomb.position], "bomb");
 
   if ( this.board.snake.applesEaten > 0) {
     for (var i = 0; i < this.board.extraBombs.length; i++) {

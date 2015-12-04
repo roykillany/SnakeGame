@@ -119,7 +119,7 @@
 	View.prototype.render = function () {
 	  this.updateClasses(this.board.snake.segments, "snake");
 	  this.updateClasses([this.board.apple.position], "apple");
-	  this.updateBombs([this.board.bomb.position], "bomb");
+	  this.updateClasses([this.board.bomb.position], "bomb");
 
 	  if ( this.board.snake.applesEaten > 0) {
 	    for (var i = 0; i < this.board.extraBombs.length; i++) {
@@ -395,7 +395,7 @@
 	          }
 	        }
 	        this.score -= 5;
-	        this.board.extraBombs.delete_at(j);
+	        this.board.extraBombs.splice(j,1);
 	      }
 	    }
 	  }

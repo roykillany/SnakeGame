@@ -106,9 +106,10 @@ li {
 }
 
 .bomb {
-  background-color: black;
-  border-radius: 50%;
-  content: "B";
+  background-image: url("https://s3.amazonaws.com/snakeprod/Pixel-Bomb.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 14px 18px;
 }
 
 .game-frame {
