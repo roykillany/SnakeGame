@@ -35,12 +35,10 @@ Apple.prototype.replace = function () {
 
 Apple.prototype.isOccupying = function (array) {
   var result = false;
-  this.segments.forEach(function (segment) {
-    if (segment.row === array[0] && segment.col === array[1]) {
+    if (this.position.row === array[0] && this.position.col === array[1]) {
       result = true;
       return result;
     }
-  });
   return result;
 };
 
@@ -74,6 +72,8 @@ Bomb.prototype.replace = function () {
     this.score = 0;
 
     this.hearts = [true, true, true];
+
+    this.applesEaten = 0;
   };
 
   Snake.DIRECTIONS = {
@@ -89,10 +89,11 @@ Bomb.prototype.replace = function () {
 
     if (this.eatApple()) {
       this.board.apple.replace();
+      this.board.newBomb(this.applesEaten);
     }
 
     if (this.eatBomb()) {
-      this.board.bomb.replace();
+
     }
 
     if (this.growTurns > 0) {
@@ -159,6 +160,7 @@ Snake.prototype.eatApple = function () {
   if (this.head().equals(this.board.apple.position)) {
     this.growTurns += 1;
     this.score += 5;
+    this.applesEaten += 1;
     return true;
   } else {
     return false;
@@ -166,6 +168,7 @@ Snake.prototype.eatApple = function () {
 };
 
 Snake.prototype.eatBomb = function () {
+  var cond;
   if (this.head().equals(this.board.bomb.position)) {
     for (var i = 2; i >= 0; i--){
       if(this.hearts[i]){
@@ -174,10 +177,28 @@ Snake.prototype.eatBomb = function () {
       }
     }
     this.score -= 5;
-    return true;
-  } else {
-    return false;
+    this.board.bomb.replace();
+
+  } else if (this.applesEaten > 0) {
+
+    for ( var j = 0; j < this.board.extraBombs.length; j++) {
+      if (this.head().equals(this.board.extraBombs[j].position)) {
+        for ( var x = 2; x >= 0; x--){
+          if(this.hearts[x]){
+            this.hearts[x] = false;
+            x = -1;
+          }
+        }
+        this.score -= 5;
+        this.board.extraBombs.delete_at(j);
+      }
+    }
   }
+  if (cond === undefined) {
+    cond = false;
+  }
+
+  return cond;
 };
 
   var Board = function (dimension) {
@@ -186,6 +207,7 @@ Snake.prototype.eatBomb = function () {
     this.snake = new Snake(this);
     this.apple = new Apple(this);
     this.bomb = new Bomb(this);
+    this.extraBombs = [];
   };
 
   Board.BLANK = ".";
@@ -229,6 +251,10 @@ Snake.prototype.eatBomb = function () {
       newCoord.push(coord.col);
     }
     return newCoord;
+  };
+
+  Board.prototype.newBomb = function () {
+    this.extraBombs.push(new Bomb(this));
   };
 
   module.exports = Board;

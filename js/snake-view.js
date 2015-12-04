@@ -56,7 +56,13 @@ View.prototype.handleKeyEvent = function (event) {
 View.prototype.render = function () {
   this.updateClasses(this.board.snake.segments, "snake");
   this.updateClasses([this.board.apple.position], "apple");
-  this.updateClasses([this.board.bomb.position], "bomb");
+  this.updateBombs([this.board.bomb.position], "bomb");
+
+  if ( this.board.snake.applesEaten > 0) {
+    for (var i = 0; i < this.board.extraBombs.length; i++) {
+      this.updateBombs([this.board.extraBombs[i].position], "bomb");
+    }
+  }
 
   $('.score').text("SCORE: " + this.board.snake.score);
   this.updateHearts(this.board.snake.hearts, "hearts");
@@ -65,6 +71,13 @@ View.prototype.render = function () {
 View.prototype.updateClasses = function(coords, className) {
   this.$li.filter("." + className).removeClass();
 
+  coords.forEach(function(coord){
+    var newCoord = (coord.row * this.board.dim) + coord.col;
+    this.$li.eq(newCoord).addClass(className);
+  }.bind(this));
+};
+
+View.prototype.updateBombs = function(coords, className) {
   coords.forEach(function(coord){
     var newCoord = (coord.row * this.board.dim) + coord.col;
     this.$li.eq(newCoord).addClass(className);
