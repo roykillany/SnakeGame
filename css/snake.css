@@ -28,11 +28,45 @@ h1 {
   width: 1050px;
 }
 
-.score {
-  text-align: left;
-  font-size: 33px;
+.info {
+  height: 55px;
   width: 400px;
   margin: 0 auto;
+}
+
+.score {
+  float: left;
+  text-align: left;
+  font-size: 33px;
+  width: 200px;
+  margin: 0 auto;
+  margin-top: 17px;
+}
+
+.hearts {
+  margin-top: 20px;
+  float: right;
+  width: 200px;
+}
+
+.full {
+  float: right;
+  height: 30px;
+  width: 30px;
+  background-image: url("https://s3.amazonaws.com/snakeprod/fullHeart.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 21px 21px;
+}
+
+.empty {
+  float: right;
+  height: 30px;
+  width: 30px;
+  background-image: url("https://s3.amazonaws.com/snakeprod/emptyHeart.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 21px 21px;
 }
 
 figure {
@@ -65,17 +99,22 @@ li {
 }
 
 .apple {
-  background-image: url("https://s3.amazonaws.com/okcookiedev/static_images/apple.png");
+  background-image: url("https://s3.amazonaws.com/snakeprod/apple.png");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 21px 21px;
+}
+
+.bomb {
+  background-color: black;
+  border-radius: 50%;
+  content: "B";
 }
 
 .game-frame {
     background-color: #a9cd97;
     width: 500px;
     padding-bottom: 50px;
-    padding-top: 20px;
     margin: 0 auto;
     border: 20px solid black;
     border-radius: 9px;

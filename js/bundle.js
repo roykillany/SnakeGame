@@ -119,8 +119,10 @@
 	View.prototype.render = function () {
 	  this.updateClasses(this.board.snake.segments, "snake");
 	  this.updateClasses([this.board.apple.position], "apple");
+	  this.updateClasses([this.board.bomb.position], "bomb");
 
 	  $('.score').text("SCORE: " + this.board.snake.score);
+	  this.updateHearts(this.board.snake.hearts, "hearts");
 	};
 
 	View.prototype.updateClasses = function(coords, className) {
@@ -130,6 +132,18 @@
 	    var newCoord = (coord.row * this.board.dim) + coord.col;
 	    this.$li.eq(newCoord).addClass(className);
 	  }.bind(this));
+	};
+
+	View.prototype.updateHearts = function(hearts, className) {
+	  $(".hearts").children("div").remove();
+
+	  hearts.forEach( function (heart) {
+	    if (heart) {
+	      $("." + className).append("<div class='full'></div>");
+	    } else {
+	      $("." + className).append("<div class='empty'></div>");
+	    }
+	  });
 	};
 
 	View.prototype.setupGrid = function () {
@@ -211,6 +225,34 @@
 	  this.position = new Coord(x, y);
 	};
 
+	Apple.prototype.isOccupying = function (array) {
+	  var result = false;
+	  this.segments.forEach(function (segment) {
+	    if (segment.row === array[0] && segment.col === array[1]) {
+	      result = true;
+	      return result;
+	    }
+	  });
+	  return result;
+	};
+
+	var Bomb = function (board) {
+	  this.board = board;
+	  this.replace();
+	};
+
+	Bomb.prototype.replace = function () {
+	  var x = Math.floor(Math.random() * this.board.dim);
+	  var y = Math.floor(Math.random() * this.board.dim);
+
+	  while (this.board.snake.isOccupying([x, y]) && this.board.apple.isOccupying([x, y])) {
+	    x = Math.floor(Math.random() * this.board.dim);
+	    y = Math.floor(Math.random() * this.board.dim);
+	  }
+
+	  this.position = new Coord(x, y);
+	};
+
 	  var Snake = function (board) {
 	    this.dir = "S"; // , "E", "S", "W"]
 	    this.turning = false;
@@ -222,6 +264,8 @@
 	    this.growTurns = 0;
 
 	    this.score = 0;
+
+	    this.hearts = [true, true, true];
 	  };
 
 	  Snake.DIRECTIONS = {
@@ -239,6 +283,10 @@
 	      this.board.apple.replace();
 	    }
 
+	    if (this.eatBomb()) {
+	      this.board.bomb.replace();
+	    }
+
 	    if (this.growTurns > 0) {
 	      this.growTurns -= 1;
 	    } else {
@@ -246,6 +294,10 @@
 	    }
 
 	    if (!this.isValid()) {
+	      this.segments = [];
+	    }
+
+	    if (!this.hearts[0]) {
 	      this.segments = [];
 	    }
 	  };
@@ -262,7 +314,7 @@
 	    }
 	  };
 
-	  Snake.prototype.isOccupying = function (array) {
+	Snake.prototype.isOccupying = function (array) {
 	  var result = false;
 	  this.segments.forEach(function (segment) {
 	    if (segment.row === array[0] && segment.col === array[1]) {
@@ -305,11 +357,27 @@
 	  }
 	};
 
+	Snake.prototype.eatBomb = function () {
+	  if (this.head().equals(this.board.bomb.position)) {
+	    for (var i = 2; i >= 0; i--){
+	      if(this.hearts[i]){
+	        this.hearts[i] = false;
+	        i = -1;
+	      }
+	    }
+	    this.score -= 5;
+	    return true;
+	  } else {
+	    return false;
+	  }
+	};
+
 	  var Board = function (dimension) {
 	    this.dim = dimension;
 
 	    this.snake = new Snake(this);
 	    this.apple = new Apple(this);
+	    this.bomb = new Bomb(this);
 	  };
 
 	  Board.BLANK = ".";

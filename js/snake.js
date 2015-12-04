@@ -33,6 +33,34 @@ Apple.prototype.replace = function () {
   this.position = new Coord(x, y);
 };
 
+Apple.prototype.isOccupying = function (array) {
+  var result = false;
+  this.segments.forEach(function (segment) {
+    if (segment.row === array[0] && segment.col === array[1]) {
+      result = true;
+      return result;
+    }
+  });
+  return result;
+};
+
+var Bomb = function (board) {
+  this.board = board;
+  this.replace();
+};
+
+Bomb.prototype.replace = function () {
+  var x = Math.floor(Math.random() * this.board.dim);
+  var y = Math.floor(Math.random() * this.board.dim);
+
+  while (this.board.snake.isOccupying([x, y]) && this.board.apple.isOccupying([x, y])) {
+    x = Math.floor(Math.random() * this.board.dim);
+    y = Math.floor(Math.random() * this.board.dim);
+  }
+
+  this.position = new Coord(x, y);
+};
+
   var Snake = function (board) {
     this.dir = "S"; // , "E", "S", "W"]
     this.turning = false;
@@ -44,6 +72,8 @@ Apple.prototype.replace = function () {
     this.growTurns = 0;
 
     this.score = 0;
+
+    this.hearts = [true, true, true];
   };
 
   Snake.DIRECTIONS = {
@@ -61,6 +91,10 @@ Apple.prototype.replace = function () {
       this.board.apple.replace();
     }
 
+    if (this.eatBomb()) {
+      this.board.bomb.replace();
+    }
+
     if (this.growTurns > 0) {
       this.growTurns -= 1;
     } else {
@@ -68,6 +102,10 @@ Apple.prototype.replace = function () {
     }
 
     if (!this.isValid()) {
+      this.segments = [];
+    }
+
+    if (!this.hearts[0]) {
       this.segments = [];
     }
   };
@@ -84,7 +122,7 @@ Apple.prototype.replace = function () {
     }
   };
 
-  Snake.prototype.isOccupying = function (array) {
+Snake.prototype.isOccupying = function (array) {
   var result = false;
   this.segments.forEach(function (segment) {
     if (segment.row === array[0] && segment.col === array[1]) {
@@ -127,11 +165,27 @@ Snake.prototype.eatApple = function () {
   }
 };
 
+Snake.prototype.eatBomb = function () {
+  if (this.head().equals(this.board.bomb.position)) {
+    for (var i = 2; i >= 0; i--){
+      if(this.hearts[i]){
+        this.hearts[i] = false;
+        i = -1;
+      }
+    }
+    this.score -= 5;
+    return true;
+  } else {
+    return false;
+  }
+};
+
   var Board = function (dimension) {
     this.dim = dimension;
 
     this.snake = new Snake(this);
     this.apple = new Apple(this);
+    this.bomb = new Bomb(this);
   };
 
   Board.BLANK = ".";
