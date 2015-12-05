@@ -25,10 +25,17 @@ Apple.prototype.replace = function () {
   var x = Math.floor(Math.random() * this.board.dim);
   var y = Math.floor(Math.random() * this.board.dim);
 
-  while (this.board.snake.isOccupying([x, y]) && this.board.bomb.isOccupying([x, y]) && this.board.isOccupyingExtraBombs([x, y])) {
-    x = Math.floor(Math.random() * this.board.dim);
-    y = Math.floor(Math.random() * this.board.dim);
-  }
+  if (this.board.bomb === undefined) {
+		while (this.board.snake.isOccupying([x, y])) {
+				x = Math.floor(Math.random() * this.board.dim);
+				y = Math.floor(Math.random() * this.board.dim);
+			}
+	} else {
+		while ((this.board.snake.isOccupying([x, y]) || this.board.bomb.isOccupying([x, y]) || this.board.isOccupyingExtraBombs([x, y]))) {
+		    x = Math.floor(Math.random() * this.board.dim);
+		    y = Math.floor(Math.random() * this.board.dim);
+		  }
+	}
 
   this.position = new Coord(x, y);
 };
