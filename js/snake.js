@@ -25,7 +25,7 @@ Apple.prototype.replace = function () {
   var x = Math.floor(Math.random() * this.board.dim);
   var y = Math.floor(Math.random() * this.board.dim);
 
-  while (this.board.snake.isOccupying([x, y]) && this.board.bomb.isOccupying([x, y])) {
+  while (this.board.snake.isOccupying([x, y]) && this.board.bomb.isOccupying([x, y]) && this.board.isOccupyingExtraBombs([x, y])) {
     x = Math.floor(Math.random() * this.board.dim);
     y = Math.floor(Math.random() * this.board.dim);
   }
@@ -199,7 +199,7 @@ Snake.prototype.eatBomb = function () {
           }
         }
         this.score -= 5;
-        this.board.extraBombs.delete_at(j);
+        this.board.extraBombs.splice(j, 1);
       }
     }
   }
@@ -264,6 +264,18 @@ Snake.prototype.eatBomb = function () {
 
   Board.prototype.newBomb = function () {
     this.extraBombs.push(new Bomb(this));
+  };
+
+
+  Board.prototype.isOccupyingExtraBombs = function (array) {
+    var result = false;
+    this.extraBombs.forEach(function (bomb) {
+      if (bomb.position.row === array[0] && bomb.position.col === array[1]) {
+        result = true;
+        return result;
+      }
+    });
+    return result;
   };
 
   module.exports = Board;

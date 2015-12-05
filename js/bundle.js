@@ -135,7 +135,12 @@
 	  this.$li.filter("." + className).removeClass();
 
 	  coords.forEach(function(coord){
-	    var newCoord = (coord.row * this.board.dim) + coord.col;
+	    var newCoord;
+	    if (coord.col === 20) {
+	     ewCoord = ((coord.row * this.board.dim) + coord.col) - 1;
+	    } else {
+	     newCoord = (coord.row * this.board.dim) + coord.col;
+	    }
 	    this.$li.eq(newCoord).addClass(className);
 	  }.bind(this));
 	};
@@ -230,7 +235,7 @@
 	  var x = Math.floor(Math.random() * this.board.dim);
 	  var y = Math.floor(Math.random() * this.board.dim);
 
-	  while (this.board.snake.isOccupying([x, y])) {
+	  while (this.board.snake.isOccupying([x, y]) && this.board.bomb.isOccupying([x, y]) && this.board.isOccupyingExtraBombs([x, y])) {
 	    x = Math.floor(Math.random() * this.board.dim);
 	    y = Math.floor(Math.random() * this.board.dim);
 	  }
@@ -262,6 +267,15 @@
 	  }
 
 	  this.position = new Coord(x, y);
+	};
+
+	Bomb.prototype.isOccupying = function (array) {
+	  var result = false;
+	    if (this.position.row === array[0] && this.position.col === array[1]) {
+	      result = true;
+	      return result;
+	    }
+	  return result;
 	};
 
 	  var Snake = function (board) {
@@ -395,7 +409,7 @@
 	          }
 	        }
 	        this.score -= 5;
-	        this.board.extraBombs.splice(j,1);
+	        this.board.extraBombs.splice(j, 1);
 	      }
 	    }
 	  }
@@ -462,6 +476,18 @@
 	    this.extraBombs.push(new Bomb(this));
 	  };
 
+
+	  Board.prototype.isOccupyingExtraBombs = function (array) {
+	    var result = false;
+	    this.extraBombs.forEach(function (bomb) {
+	      if (bomb.position.row === array[0] && bomb.position.col === array[1]) {
+	        result = true;
+	        return result;
+	      }
+	    });
+	    return result;
+	  };
+
 	  module.exports = Board;
 
 
@@ -469,7 +495,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-
+	
 
 /***/ }
 /******/ ]);

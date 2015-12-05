@@ -72,7 +72,12 @@ View.prototype.updateClasses = function(coords, className) {
   this.$li.filter("." + className).removeClass();
 
   coords.forEach(function(coord){
-    var newCoord = (coord.row * this.board.dim) + coord.col;
+    var newCoord;
+    if (coord.col === 20) {
+     ewCoord = ((coord.row * this.board.dim) + coord.col) - 1;
+    } else {
+     newCoord = (coord.row * this.board.dim) + coord.col;
+    }
     this.$li.eq(newCoord).addClass(className);
   }.bind(this));
 };
