@@ -9,7 +9,7 @@ To run this game open 'index.html' in your favorite web browser.
 
 [Snake]: www.ursulachang.com/SnakeGame
 
-## How yo Play
+## How you Play
 
 Move up, left, down and right to collect the snake "food" aka apples and grow your snake.
 Be careful: If your snake runs into itself, the game will be over. Plus if you leave the board, it comes out on the opposite side!
@@ -24,3 +24,4 @@ EXTRA: Watch out there are bombs. Don't eat them! If you do you will lose a hear
 
 ## Comments
 * Add more controls
+* Apple sometimes lands on bomb (fix bug)
