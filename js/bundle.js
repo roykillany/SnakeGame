@@ -137,7 +137,7 @@
 	  coords.forEach(function(coord){
 	    var newCoord;
 	    if (coord.col === 20) {
-	     ewCoord = ((coord.row * this.board.dim) + coord.col) - 1;
+	     newCoord = ((coord.row * this.board.dim) + coord.col) - 1;
 	    } else {
 	     newCoord = (coord.row * this.board.dim) + coord.col;
 	    }
@@ -502,7 +502,7 @@
 /* 4 */
 /***/ function(module, exports) {
 
-	
+
 
 /***/ }
 /******/ ]);
