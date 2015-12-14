@@ -7,7 +7,7 @@ This game is an implementation of the classic game Snake in JavaScript.
 To run this game open 'index.html' in your favorite web browser.
 [Live Link][Snake]
 
-[Snake]: www.ursulachang.com/SnakeGame
+[Snake]: http://www.ursulachang.com/SnakeGame
 
 ## How you Play
 
